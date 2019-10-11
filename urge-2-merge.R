@@ -1,14 +1,14 @@
 library(tidyverse)
 NOAA <- read.csv("https://www.aavso.org/sites/default/files/solar/NOAAfiles/daily%20%281%29.csv")
 NOAA$Ymd <- as.Date(paste(NOAA$Year, NOAA$Month, NOAA$Day, sep = "-"))
-NOAA <- NOAA %>% filter(Year >=1946) %>% select(Ymd,Ra)
+NOAA <- NOAA %>% filter(Year >=1945) %>% select(Ymd,Ra)
 summary(NOAA)
 
 SIDC<-read.csv("http://sidc.be/silso/DATA/SN_d_tot_V2.0.csv",sep = ';')
 # ADD column names
 colnames(SIDC) <- c("Year","Month","Day", "Fdate","SIDC", "Sd","Obs" ,"Defin"  )
 SIDC$Ymd <- as.Date(paste(SIDC$Year, SIDC$Month, SIDC$Day, sep = "-"))
-SIDC <- SIDC %>% filter(Year >=1946) %>% select(Ymd,SIDC)
+SIDC <- SIDC %>% filter(Year >=1945) %>% select(Ymd,SIDC)
 summary(SIDC)
 
 merged <- inner_join(SIDC,NOAA, by="Ymd")
